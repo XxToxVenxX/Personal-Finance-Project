@@ -1,0 +1,33 @@
+# Secrets
+.env
+*.key
+
+# Virtual environment
+.venv/
+venv/
+
+# PyCharm
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+helper_blocks.py
+
+# Logs - contain narrations and amounts
+*.log
+logs/
+
+# Financial data - never commit
+*.CSV
+*.csv
+*.xlsx
+*.xls
+*.pdf
+cache/
+config/merchant_map.json
+
+# OS
+Thumbs.db
+.DS_Store

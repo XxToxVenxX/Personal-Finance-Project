@@ -1,0 +1,28 @@
+PROJECT_DIRECTORY = r"D:\Study\AI\Claude Finance Project\Python Code\ClaudePersonalFinanceProject"
+STATEMENTS_DIRECTORY = r"D:\Study\AI\Claude Finance Project\Bank Statements"
+WORKBOOK_DIRECTORY = r"D:\Study\AI\Claude Finance Project\Excel File"
+
+SAVINGS_DIRECTORY = STATEMENTS_DIRECTORY + r"\ICICI Debit Account"
+AMAZON_CARD_DIRECTORY = STATEMENTS_DIRECTORY + r"\Credit Card Amazon"
+STANDARD_CARD_DIRECTORY = STATEMENTS_DIRECTORY + r"\Credit Card ICICI"
+STATEMENT_FILE_PATTERN = "*.CSV"
+
+WORKBOOK_PATH = WORKBOOK_DIRECTORY + r"\Financial_Report.xlsx"
+CATEGORIES_PATH = PROJECT_DIRECTORY + r"\config\categories.md"
+MERCHANT_MAP_PATH = PROJECT_DIRECTORY + r"\cache\merchant_map.json"
+LOG_FILE_PATH = PROJECT_DIRECTORY + r"\logs\pipeline.log"
+
+SAVINGS_SOURCE_ACCOUNT = "icici_savings"
+AMAZON_CARD_SOURCE_ACCOUNT = "icici_credit_card_amazon"
+STANDARD_CARD_SOURCE_ACCOUNT = "icici_credit_card_standard"
+
+CLASSIFICATION_PROVIDER = "gemini"
+CLASSIFICATION_MODEL = "gemini-3.5-flash-lite"
+CLASSIFICATION_LIMIT = None
+CLASSIFICATION_BATCH_SIZE = 40
+CLASSIFICATION_MAX_TOKENS = 8192
+
+ABORT_ON_BALANCE_DISCREPANCY = True
+
+LOG_LEVEL = "INFO"
+LOG_TO_CONSOLE = True
