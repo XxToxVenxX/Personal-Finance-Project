@@ -10,7 +10,7 @@ from pipeline_logging import configure_pipeline_logging
 
 def refresh_workbook_categories():
     logger = configure_pipeline_logging()
-    pipeline_result = run_pipeline()
+    pipeline_result = run_pipeline(categorize_all=True)
     if pipeline_result is None:
         return
 

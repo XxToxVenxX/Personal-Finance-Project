@@ -52,12 +52,12 @@ def categorize_transaction(transaction, merchant_map):
     return categorized_transaction, merchant_cache_key
 
 
-def categorize_transactions(transactions, merchant_map):
+def categorize_transactions(transactions, merchant_map, skip_duplicates=True):
     categorized_transactions = []
     unresolved_merchant_keys = []
 
     for transaction in transactions:
-        if transaction["is_duplicate"]:
+        if skip_duplicates and transaction["is_duplicate"]:
             duplicate_transaction = dict(transaction)
             duplicate_transaction["classification_confidence"] = None
             duplicate_transaction["classification_reason"] = None

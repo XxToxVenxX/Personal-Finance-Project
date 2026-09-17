@@ -47,7 +47,7 @@ from pipeline_config import (
 )
 
 
-def run_pipeline():
+def run_pipeline(categorize_all=False):
     logger = configure_pipeline_logging()
     run_date = str(date.today())
     logger.info("=" * 62)
@@ -98,10 +98,11 @@ def run_pipeline():
         WORKBOOK_PATH, category_taxonomy
     )
     if resolved_classifications:
-        merchant_map, resolved_keys, _ = merge_classifications_into_merchant_map(
+        merchant_map, resolved_keys, already_manual_keys = merge_classifications_into_merchant_map(
             merchant_map, resolved_classifications, run_date, source="manual"
         )
-        logger.info(f"review resolutions  : {len(resolved_keys)} applied as manual entries")
+        logger.info(f"review resolutions  : {len(resolved_classifications)} read, "
+                    f"{len(resolved_keys)} newly applied, {len(already_manual_keys)} already manual")
     if rejected_resolutions:
         logger.info(f"review rejections   : {len(rejected_resolutions)} invalid category pairs")
         for rejection in rejected_resolutions:
@@ -109,7 +110,7 @@ def run_pipeline():
                   f"{rejection['category']} > {rejection['subcategory']}")
 
     categorized_transactions, unresolved_merchant_keys = categorize_transactions(
-        reconciled_transactions, merchant_map
+        reconciled_transactions, merchant_map, skip_duplicates=not categorize_all
     )
     logger.info(f"cache entries       : {len(merchant_map)}")
     logger.info(f"unresolved merchants: {len(unresolved_merchant_keys)}")
@@ -165,7 +166,7 @@ def run_pipeline():
                 logger.warning(f"   {key[:44]} - {classifications[key]['rejection_reason']}")
 
         categorized_transactions, unresolved_merchant_keys = categorize_transactions(
-            reconciled_transactions, merchant_map
+            reconciled_transactions, merchant_map, skip_duplicates=not categorize_all
         )
 
     merchant_map = record_merchant_map_hits(merchant_map, categorized_transactions, run_date)

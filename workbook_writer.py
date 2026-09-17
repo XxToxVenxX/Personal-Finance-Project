@@ -1,5 +1,6 @@
 from pathlib import Path
 
+UNCATEGORIZED_CATEGORY = "Uncategorized"
 TRANSACTIONS_SHEET_NAME = "Detailed_Transactions"
 TRANSACTION_IDENTIFIER_COLUMN_INDEX = 11
 TRANSACTION_DATE_COLUMN_INDEX = 1
@@ -179,9 +180,7 @@ CLASSIFICATION_REASON_COLUMN_INDEX = 10
 
 def build_category_update_block(existing_category_rows, transactions):
     transactions_by_identifier = {
-        transaction["transaction_id"]: transaction
-        for transaction in transactions
-        if not transaction["is_duplicate"]
+        transaction["transaction_id"]: transaction for transaction in transactions
     }
 
     updated_block = []
@@ -192,6 +191,10 @@ def build_category_update_block(existing_category_rows, transactions):
         transaction = transactions_by_identifier.get(transaction_identifier)
 
         if transaction is None:
+            updated_block.append([category, subcategory, confidence, reason])
+            continue
+
+        if transaction["category"] == UNCATEGORIZED_CATEGORY and category != UNCATEGORIZED_CATEGORY:
             updated_block.append([category, subcategory, confidence, reason])
             continue
 
