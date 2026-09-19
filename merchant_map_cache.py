@@ -59,7 +59,11 @@ def merge_classifications_into_merchant_map(merchant_map, classifications, obser
 
     for merchant_cache_key, classification in classifications.items():
         existing_entry = updated_merchant_map.get(merchant_cache_key)
-        if existing_entry and existing_entry["source"] == MANUAL_CACHE_SOURCE:
+        if (
+                existing_entry
+                and existing_entry["source"] == MANUAL_CACHE_SOURCE
+                and source != MANUAL_CACHE_SOURCE
+        ):
             protected_merchant_keys.append(merchant_cache_key)
             continue
 
