@@ -31,3 +31,7 @@ config/merchant_map.json
 # OS
 Thumbs.db
 .DS_Store
+
+# Power BI
+*.pbix
+*.pbit
